@@ -1,0 +1,12 @@
+.gallery-contents-part .gallery-header-part {
+  width: 100vw;
+  height: 150px;
+  overflow: hidden;
+}
+.gallery-contents-part .gallery-header-part img {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
