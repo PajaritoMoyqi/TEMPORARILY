@@ -5,10 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-Frame-Options" content="allow-from https://www.naver.com/" />
   <title>Document</title>
-  <link rel="stylesheet" href="./new.css">
+  <!-- <link rel="stylesheet" href="./new.css"> -->
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    .flex {
+      display: flex;
+    }
+    .big-box {
+      width: 100px;
+      height: 100px;
+    }
+    .box {
+      width: 50px;
+      height: 50px;
+    }
+    .small-box {
+      width: 20px;
+      height: 20px;
+    }
+    .black-box {
+      border: 3px solid black;
+    }
+    .red-box {
+      border: 3px solid red;
+    }
+    .blue-box {
+      border: 3px solid blue;
+    }
+    .green-box {
+      border: 3px solid green;
+    }
+  </style>
 </head>
 <body>
-  <h2>예약하기</h2>
+
+  <div class="flex big-box black-box">
+    <div class="box red-box">
+      <div class="small-box green-box"></div>
+      <div class="small-box green-box"></div>
+    </div>
+    <div class="flex box blue-box">
+      <div class="small-box green-box"></div>
+      <div class="small-box green-box"></div>
+    </div>
+  </div>
+    <!-- <h2>예약하기</h2>
   <div id="res-table">
 
   </div>
@@ -18,6 +61,6 @@
     width="300"
     height="200"
     src="https://www.naver.com/">
-</iframe>
+</iframe> -->
 </body>
 </html>
