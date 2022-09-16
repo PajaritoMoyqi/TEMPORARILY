@@ -1,8 +1,13 @@
-const fs = require('fs');
+var a = 1;
+var b = 2;
 
-const data = JSON.parse(fs.readFileSync(__dirname + '/data.json'));
-const userData = JSON.parse(fs.readFileSync(__dirname + '/users.json'));
+if (a === 1) {
+  var a = 11; // 전역 변수
+  let b = 22; // if 블록 변수
 
-const resTable = document.querySelector('#res-table');
+  console.log(a);  // 11
+  console.log(b);  // 22
+}
 
-console.log(resTable);
+console.log(a); // 11
+console.log(b); // 2
