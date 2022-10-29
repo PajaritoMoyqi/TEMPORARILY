@@ -1,13 +1,15 @@
-var a = 1;
-var b = 2;
+const go = () => {
+  const list = [1, 2, 3]
+  const a = [];
+	
+  for (const prop of list) {
+    console.log(prop)
+    console.log(a.push(prop))
+  }
+  
+  console.log('done all')
 
-if (a === 1) {
-  var a = 11; // 전역 변수
-  let b = 22; // if 블록 변수
-
-  console.log(a);  // 11
-  console.log(b);  // 22
+  console.log(a);
 }
 
-console.log(a); // 11
-console.log(b); // 2
+go();
