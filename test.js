@@ -13,3 +13,4 @@ const go = () => {
 }
 
 go();
+// do nothing below
