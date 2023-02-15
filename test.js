@@ -1,11 +1,16 @@
-var a = "str";
-var b = "1";
-
-switch (true) {
-  case (a == 1 || b == 1):
-    console.log("true is str");
-    break;
-  default:
-    console.log("true is not str");
-    break;
+for(let i=0; i<10; i++){
+  console.log(i);
 }
+// console.log(i);
+
+
+loading = false;
+
+if(!loading){
+  const limit = 5;
+  const result = makeSomething(limit);
+
+  console.log(result);
+}
+
+console.log(limit); // ReferenceError: limit is not defined
