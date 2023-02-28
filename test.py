@@ -1,8 +1,23 @@
-num = int(input('정수만 입력해주세요, 전 당신을 믿습니다: '))
+class A:
+    def __init__(self, a="a", *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.a=a
 
-if num > 0:
-    print('양의 정수를 입력해주셨네요!')
-elif num < 0:
-    print('음의 정수를 입력해주셨군요.')
-else:
-    print('혹시 0을 입력하셨나요?')
+    
+class B(A):
+    def __init__(self, b="b", *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.b=b
+        self.hello='hello'
+    
+    def hi(self):
+        print(f'hi {self.b}')
+        
+class OtherB(B):
+    def __init__(self, b="otherB", *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.b=b
+
+c = OtherB()
+print(c.b) # otherB
+c.hi() # hi otherB
