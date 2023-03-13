@@ -4,16 +4,140 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="./reset.css">
   <style>
-
+    .container {
+      width: 100vw;
+    }
+    .silder-wrapper {
+      width: 100%;
+      overflow: hidden;
+      height: 500px;
+    }
+    .slider-box {
+      display: flex;
+    }
+    .inner-container img {
+      width: 100vw;
+    }
+    .btn-part {
+      position: absolute;
+      left: 10vw;
+      width: 80%;
+      top: 250px;
+    }
+    .btn-part button.right-btn {
+      position: absolute;
+      right: 0;
+    }
   </style>
 </head>
 <body>
-  <h1>Hi</h1>
-  <form action="">
-    <input type="text" required>
-    <button type="submit">submit</button>  
-  </form>
-  <footer>Copyright to me, Pajarito!!!</footer>
+  <div class="container">
+    <div class="silder-wrapper">
+      <div class="slider-box">
+        <div class="inner-container">
+          1
+          <img src="https://picsum.photos/300">
+        </div>
+        <div class="inner-container">
+          2
+          <img src="https://picsum.photos/400">
+        </div>
+        <div class="inner-container">
+          3
+          <img src="https://picsum.photos/500">
+        </div>
+        <div class="inner-container">
+          4
+          <img src="https://picsum.photos/600">
+        </div>
+        <div class="inner-container">
+          5
+          <img src="https://picsum.photos/700">
+        </div>  
+      </div>
+    </div>
+    <div class="btn-part">
+      <button class="left-btn">LEFT</button>
+      <button class="right-btn">RIGHT</button>  
+    </div>
+  </div>
+
+  <script>
+    const leftBtn = document.querySelector(".left-btn");
+    const rightBtn = document.querySelector(".right-btn");
+
+    const container = document.querySelector(".container");
+    const sliderWrapper = document.querySelector(".silder-wrapper");
+    const sliderBox = document.querySelector(".slider-box");
+    const innerContainer = document.querySelectorAll(".inner-container");
+    
+    const sliderNum = innerContainer.length;
+    const sliderWidth = 100;
+    const sliderSpeed = 300;
+
+    const startIdx = 0;
+
+    sliderBox.style.width = sliderWidth * sliderNum + "vw";
+
+    	
+    const firstChild = innerContainer[0];
+    const secondChild = innerContainer[1];
+    const secondLastChild = innerContainer[sliderNum - 2];
+    const lastChild = innerContainer[sliderNum - 1];
+
+    const clonedFirst = firstChild.cloneNode(true);
+    const clonedSecond = secondChild.cloneNode(true);
+    const clonedSecondLast = secondLastChild.cloneNode(true);
+    const clonedLast = lastChild.cloneNode(true);
+
+    	
+    sliderBox.appendChild(clonedFirst);
+    sliderBox.appendChild(clonedSecond);
+    sliderBox.insertBefore(clonedLast, sliderBox.firstElementChild);
+    sliderBox.insertBefore(clonedSecondLast, sliderBox.firstElementChild);
+
+    sliderBox.style.transform = "translate3d(-" + (sliderWidth * (startIdx + 2)) + "vw, 0px, 0px)";
+
+    let sliderIdx = startIdx;
+    let currentSlider = innerContainer[sliderIdx];
+    currentSlider.classList.add("active");
+
+    rightBtn.addEventListener("click", () => {
+      if (sliderIdx <= sliderNum - 1) {
+        sliderBox.style.transition = sliderSpeed + "ms";
+        sliderBox.style.transform = "translate3d(-" + (sliderWidth * (sliderIdx + 3)) + "vw, 0px, 0px)";
+      }
+      if (sliderIdx === sliderNum - 1) {
+        setTimeout( () => {
+          sliderBox.style.transition = "0ms";
+          sliderBox.style.transform = "translate3d(-" + (sliderWidth * (startIdx + 2)) + "vw, 0px, 0px)";
+        }, sliderSpeed);
+        sliderIdx = -1;
+      }
+      currentSlider.classList.remove("active");
+      currentSlider = innerContainer[++sliderIdx];
+      currentSlider.classList.add("active");
+    });
+    
+    leftBtn.addEventListener("click", () => {
+      if (sliderIdx >= 0) {
+        sliderBox.style.transition = sliderSpeed + "ms";
+        sliderBox.style.transform = "translate3d(-" + (sliderWidth * (sliderIdx + 1)) + "vw, -1px, -1px)";
+      }
+      if (sliderIdx === 0) {
+        setTimeout(function() {
+          sliderBox.style.transition = "0ms";
+          sliderBox.style.transform = "translate3d(-" + (sliderWidth * (sliderNum + 1)) + "vw, 0px, 0px)";
+        }, sliderSpeed);
+        sliderIdx = sliderNum;
+      }
+      console.log(sliderIdx);
+      currentSlider.classList.remove("active");
+      currentSlider = innerContainer[--sliderIdx];
+      currentSlider.classList.add("active");
+    });
+  </script>
 </body>
 </html>
