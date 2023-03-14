@@ -113,7 +113,7 @@
     let currentSlider = innerContainerFinal[sliderIdx];
     currentSlider.classList.add("active");
 
-    rightBtn.addEventListener("click", () => {
+    const rightBtnCb = () => {
       const temp = sliderIdx;
       sliderIdx++;
 
@@ -123,6 +123,10 @@
         currentSlider.classList.remove("active");
         currentSlider = innerContainerFinal[sliderIdx];
         currentSlider.classList.add("active");
+        rightBtn.removeEventListener("click", rightBtnCb);
+        setTimeout(() => {
+          rightBtn.addEventListener("click", rightBtnCb);
+        }, sliderSpeed);
       }
       if (sliderIdx === innerContainerFinalNum - 2) {
         setTimeout( () => {
@@ -136,9 +140,9 @@
         }, sliderSpeed);
       }
       console.log(temp, sliderIdx);
-    });
-    
-    leftBtn.addEventListener("click", () => {
+    }
+
+    const leftBtnCb = () => {
       const temp = sliderIdx;
       sliderIdx--;
 
@@ -148,6 +152,10 @@
         currentSlider.classList.remove("active");
         currentSlider = innerContainerFinal[sliderIdx];
         currentSlider.classList.add("active");
+        leftBtn.removeEventListener("click", leftBtnCb);
+        setTimeout(() => {
+          leftBtn.addEventListener("click", leftBtnCb);
+        }, sliderSpeed);
       }
       if (sliderIdx === 1) {
         setTimeout( () => {
@@ -161,7 +169,10 @@
         }, sliderSpeed);
       }
       console.log(temp, sliderIdx);
-    });
+    }
+
+    rightBtn.addEventListener("click", rightBtnCb);
+    leftBtn.addEventListener("click", leftBtnCb);
   </script>
 </body>
 </html>
