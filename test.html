@@ -18,7 +18,12 @@
       display: flex;
     }
     .inner-container img {
-      width: 100vw;
+      width: 10vw;
+      height: 250px;
+    }
+    .inner-container.active img {
+      width: 80vw;
+      height: 500px;
     }
     .btn-part {
       position: absolute;
@@ -74,12 +79,13 @@
     const innerContainer = document.querySelectorAll(".inner-container");
     
     const sliderNum = innerContainer.length;
-    const sliderWidth = 100;
+    const sliderWidth = 10;
+    const activeSliderWidth = 80;
     const sliderSpeed = 300;
 
     const startIdx = 0;
 
-    sliderBox.style.width = sliderWidth * sliderNum + "vw";
+    sliderBox.style.width = (sliderWidth * (sliderNum - 1)) + activeSliderWidth  + "vw";
 
     	
     const firstChild = innerContainer[0];
@@ -98,45 +104,62 @@
     sliderBox.insertBefore(clonedLast, sliderBox.firstElementChild);
     sliderBox.insertBefore(clonedSecondLast, sliderBox.firstElementChild);
 
-    sliderBox.style.transform = "translate3d(-" + (sliderWidth * (startIdx + 2)) + "vw, 0px, 0px)";
+    sliderBox.style.transform = "translate3d(-" + sliderWidth * (startIdx + 1) + "vw, 0px, 0px)";
 
     let sliderIdx = startIdx;
     let currentSlider = innerContainer[sliderIdx];
     currentSlider.classList.add("active");
 
     rightBtn.addEventListener("click", () => {
+      const innerContainerFinal = document.querySelectorAll(".inner-container");
+      sliderIdx++;
+      
       if (sliderIdx <= sliderNum - 1) {
         sliderBox.style.transition = sliderSpeed + "ms";
-        sliderBox.style.transform = "translate3d(-" + (sliderWidth * (sliderIdx + 3)) + "vw, 0px, 0px)";
+        sliderBox.style.transform = "translate3d(-" + (sliderWidth * (sliderIdx + 1)) + "vw, 0px, 0px)";
+        currentSlider.classList.remove("active");
+        currentSlider = innerContainerFinal[sliderIdx + 2];
+        currentSlider.classList.add("active");
       }
       if (sliderIdx === sliderNum - 1) {
         setTimeout( () => {
           sliderBox.style.transition = "0ms";
-          sliderBox.style.transform = "translate3d(-" + (sliderWidth * (startIdx + 2)) + "vw, 0px, 0px)";
+          sliderBox.style.transform = "translate3d(-" + (sliderWidth * (startIdx)) + "vw, 0px, 0px)";
+
+          sliderIdx = -1;
+          currentSlider.classList.remove("active");
+          currentSlider = innerContainerFinal[sliderIdx + 2];
+          currentSlider.classList.add("active");
         }, sliderSpeed);
-        sliderIdx = -1;
       }
-      currentSlider.classList.remove("active");
-      currentSlider = innerContainer[++sliderIdx];
-      currentSlider.classList.add("active");
     });
     
     leftBtn.addEventListener("click", () => {
-      if (sliderIdx >= 0) {
-        sliderBox.style.transition = sliderSpeed + "ms";
-        sliderBox.style.transform = "translate3d(-" + (sliderWidth * (sliderIdx + 1)) + "vw, -1px, -1px)";
+      const innerContainerFinal = document.querySelectorAll(".inner-container");
+      if(sliderIdx === 5) {
+        sliderIdx -= 2;
+      } else {
+        sliderIdx--;
       }
-      if (sliderIdx === 0) {
+
+      if (sliderIdx >= -1) {
+        sliderBox.style.transition = sliderSpeed + "ms";
+        sliderBox.style.transform = "translate3d(-" + (sliderWidth * (sliderIdx + 1)) + "vw, 0px, 0px)";
+        currentSlider.classList.remove("active");
+        currentSlider = innerContainerFinal[sliderIdx + 2];
+        currentSlider.classList.add("active");
+      }
+      if (sliderIdx === -1) {
         setTimeout(function() {
           sliderBox.style.transition = "0ms";
-          sliderBox.style.transform = "translate3d(-" + (sliderWidth * (sliderNum + 1)) + "vw, 0px, 0px)";
+          sliderBox.style.transform = "translate3d(-" + (sliderWidth * (sliderNum)) + "vw, 0px, 0px)";
+
+          sliderIdx = sliderNum;
+          currentSlider.classList.remove("active");
+          currentSlider = innerContainerFinal[sliderIdx + 1];
+          currentSlider.classList.add("active");
         }, sliderSpeed);
-        sliderIdx = sliderNum;
       }
-      console.log(sliderIdx);
-      currentSlider.classList.remove("active");
-      currentSlider = innerContainer[--sliderIdx];
-      currentSlider.classList.add("active");
     });
   </script>
 </body>
