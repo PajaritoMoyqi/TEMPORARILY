@@ -70,59 +70,72 @@
   </div>
 
   <script>
+    // select buttons
     const leftBtn = document.querySelector(".left-btn");
     const rightBtn = document.querySelector(".right-btn");
 
+    // select containers
     const container = document.querySelector(".container");
     const sliderWrapper = document.querySelector(".silder-wrapper");
     const sliderBox = document.querySelector(".slider-box");
     const innerContainer = document.querySelectorAll(".inner-container");
     
-    const sliderNum = innerContainer.length;
-    const sliderWidth = 10;
-    const activeSliderWidth = 80;
-    const sliderSpeed = 300;
+    // constant variable setting
+    const sliderNum = innerContainer.length; // total number of "original" images
+    const sliderWidth = 10; // basic slider width (10vw)
+    const activeSliderWidth = 80; // active slider width (80vw)
+    const sliderSpeed = 300; // slider chaning speed
 
-    const startIdx = 2;
-
+    // set slider-box total width = (basicslider number - 1) * 10vw + active slider number(which is 1) * 80vw
     sliderBox.style.width = (sliderWidth * (sliderNum - 1)) + activeSliderWidth  + "vw";
 
-    	
+    // copy children that need to be attached both sides
+    // 1. select
     const firstChild = innerContainer[0];
     const secondChild = innerContainer[1];
     const secondLastChild = innerContainer[sliderNum - 2];
     const lastChild = innerContainer[sliderNum - 1];
 
+    // 2. copy
     const clonedFirst = firstChild.cloneNode(true);
     const clonedSecond = secondChild.cloneNode(true);
     const clonedSecondLast = secondLastChild.cloneNode(true);
     const clonedLast = lastChild.cloneNode(true);
 
-    	
+    // 3. attach
     sliderBox.appendChild(clonedFirst);
     sliderBox.appendChild(clonedSecond);
     sliderBox.insertBefore(clonedLast, sliderBox.firstElementChild);
     sliderBox.insertBefore(clonedSecondLast, sliderBox.firstElementChild);
 
+    // constant variable setting 2
+    const startIdx = 2; // start image index (in total array)
+    const innerContainerFinal = document.querySelectorAll(".inner-container"); // total array of image container DOM
+    const innerContainerFinalNum = innerContainerFinal.length; // final number of image container
+
+    // set initial position of slider-box
     sliderBox.style.transform = "translate3d(-" + sliderWidth * (startIdx - 1) + "vw, 0px, 0px)";
 
-    const innerContainerFinal = document.querySelectorAll(".inner-container");
-    const innerContainerFinalNum = innerContainerFinal.length;
-
-    let sliderIdx = startIdx;
-    let currentSlider = innerContainerFinal[sliderIdx];
-    currentSlider.classList.add("active");
+    // sets variables that are gonna be changed by click event
+    let sliderIdx = startIdx; // index which represents what slider is selected now
+    let currentSlider = innerContainerFinal[sliderIdx];  // get initial current slider
+    currentSlider.classList.add("active"); // set active class to main image to give specific style
 
     const rightBtnCb = () => {
-      const temp = sliderIdx;
-      sliderIdx++;
+      const temp = sliderIdx; // just for debugging
+      sliderIdx++; // slider index changed
 
       if (sliderIdx <= innerContainerFinalNum - 2) {
+        // slider-box animation
         sliderBox.style.transition = sliderSpeed + "ms";
         sliderBox.style.transform = "translate3d(-" + (sliderWidth * (sliderIdx - 1)) + "vw, 0px, 0px)";
+
+        // selected image style
         currentSlider.classList.remove("active");
         currentSlider = innerContainerFinal[sliderIdx];
         currentSlider.classList.add("active");
+
+        // block button event
         rightBtn.removeEventListener("click", rightBtnCb);
         setTimeout(() => {
           rightBtn.addEventListener("click", rightBtnCb);
@@ -130,28 +143,37 @@
       }
       if (sliderIdx === innerContainerFinalNum - 2) {
         setTimeout( () => {
+          // change selected image behind users' back
           sliderBox.style.transition = "0ms";
           sliderBox.style.transform = "translate3d(-" + (sliderWidth * (startIdx - 1)) + "vw, 0px, 0px)";
 
+          // change slider index behind users' back
           sliderIdx = 2;
+          
+          // selected image style
           currentSlider.classList.remove("active");
           currentSlider = innerContainerFinal[sliderIdx];
           currentSlider.classList.add("active");
         }, sliderSpeed);
       }
-      console.log(temp, sliderIdx);
+      console.log(temp, sliderIdx); // just for debugging
     }
 
     const leftBtnCb = () => {
-      const temp = sliderIdx;
-      sliderIdx--;
+      const temp = sliderIdx; // just for debugging
+      sliderIdx--; // slider index changed
 
       if (sliderIdx >= 1) {
+        // slider-box animation
         sliderBox.style.transition = sliderSpeed + "ms";
         sliderBox.style.transform = "translate3d(-" + (sliderWidth * (sliderIdx - 1)) + "vw, 0px, 0px)";
+
+        // selected image style
         currentSlider.classList.remove("active");
         currentSlider = innerContainerFinal[sliderIdx];
         currentSlider.classList.add("active");
+
+        // block button event
         leftBtn.removeEventListener("click", leftBtnCb);
         setTimeout(() => {
           leftBtn.addEventListener("click", leftBtnCb);
@@ -159,18 +181,23 @@
       }
       if (sliderIdx === 1) {
         setTimeout( () => {
+          // change selected image behind users' back
           sliderBox.style.transition = "0ms";
           sliderBox.style.transform = "translate3d(-" + (sliderWidth * (innerContainerFinalNum - 4)) + "vw, 0px, 0px)";
 
+          // change slider index behind users' back
           sliderIdx = innerContainerFinalNum - 3;
+
+          // selected image style
           currentSlider.classList.remove("active");
           currentSlider = innerContainerFinal[sliderIdx];
           currentSlider.classList.add("active");
         }, sliderSpeed);
       }
-      console.log(temp, sliderIdx);
+      console.log(temp, sliderIdx); // just for debugging
     }
 
+    // add event-listener
     rightBtn.addEventListener("click", rightBtnCb);
     leftBtn.addEventListener("click", leftBtnCb);
   </script>
