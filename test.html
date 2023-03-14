@@ -83,7 +83,7 @@
     const activeSliderWidth = 80;
     const sliderSpeed = 300;
 
-    const startIdx = 0;
+    const startIdx = 2;
 
     sliderBox.style.width = (sliderWidth * (sliderNum - 1)) + activeSliderWidth  + "vw";
 
@@ -104,62 +104,63 @@
     sliderBox.insertBefore(clonedLast, sliderBox.firstElementChild);
     sliderBox.insertBefore(clonedSecondLast, sliderBox.firstElementChild);
 
-    sliderBox.style.transform = "translate3d(-" + sliderWidth * (startIdx + 1) + "vw, 0px, 0px)";
+    sliderBox.style.transform = "translate3d(-" + sliderWidth * (startIdx - 1) + "vw, 0px, 0px)";
+
+    const innerContainerFinal = document.querySelectorAll(".inner-container");
+    const innerContainerFinalNum = innerContainerFinal.length;
 
     let sliderIdx = startIdx;
-    let currentSlider = innerContainer[sliderIdx];
+    let currentSlider = innerContainerFinal[sliderIdx];
     currentSlider.classList.add("active");
 
     rightBtn.addEventListener("click", () => {
-      const innerContainerFinal = document.querySelectorAll(".inner-container");
+      const temp = sliderIdx;
       sliderIdx++;
-      
-      if (sliderIdx <= sliderNum - 1) {
+
+      if (sliderIdx <= innerContainerFinalNum - 2) {
         sliderBox.style.transition = sliderSpeed + "ms";
-        sliderBox.style.transform = "translate3d(-" + (sliderWidth * (sliderIdx + 1)) + "vw, 0px, 0px)";
+        sliderBox.style.transform = "translate3d(-" + (sliderWidth * (sliderIdx - 1)) + "vw, 0px, 0px)";
         currentSlider.classList.remove("active");
-        currentSlider = innerContainerFinal[sliderIdx + 2];
+        currentSlider = innerContainerFinal[sliderIdx];
         currentSlider.classList.add("active");
       }
-      if (sliderIdx === sliderNum - 1) {
+      if (sliderIdx === innerContainerFinalNum - 2) {
         setTimeout( () => {
           sliderBox.style.transition = "0ms";
-          sliderBox.style.transform = "translate3d(-" + (sliderWidth * (startIdx)) + "vw, 0px, 0px)";
+          sliderBox.style.transform = "translate3d(-" + (sliderWidth * (startIdx - 1)) + "vw, 0px, 0px)";
 
-          sliderIdx = -1;
+          sliderIdx = 2;
           currentSlider.classList.remove("active");
-          currentSlider = innerContainerFinal[sliderIdx + 2];
+          currentSlider = innerContainerFinal[sliderIdx];
           currentSlider.classList.add("active");
         }, sliderSpeed);
       }
+      console.log(temp, sliderIdx);
     });
     
     leftBtn.addEventListener("click", () => {
-      const innerContainerFinal = document.querySelectorAll(".inner-container");
-      if(sliderIdx === 5) {
-        sliderIdx -= 2;
-      } else {
-        sliderIdx--;
-      }
+      const temp = sliderIdx;
+      sliderIdx--;
 
-      if (sliderIdx >= -1) {
+      if (sliderIdx >= 1) {
         sliderBox.style.transition = sliderSpeed + "ms";
-        sliderBox.style.transform = "translate3d(-" + (sliderWidth * (sliderIdx + 1)) + "vw, 0px, 0px)";
+        sliderBox.style.transform = "translate3d(-" + (sliderWidth * (sliderIdx - 1)) + "vw, 0px, 0px)";
         currentSlider.classList.remove("active");
-        currentSlider = innerContainerFinal[sliderIdx + 2];
+        currentSlider = innerContainerFinal[sliderIdx];
         currentSlider.classList.add("active");
       }
-      if (sliderIdx === -1) {
-        setTimeout(function() {
+      if (sliderIdx === 1) {
+        setTimeout( () => {
           sliderBox.style.transition = "0ms";
-          sliderBox.style.transform = "translate3d(-" + (sliderWidth * (sliderNum)) + "vw, 0px, 0px)";
+          sliderBox.style.transform = "translate3d(-" + (sliderWidth * (innerContainerFinalNum - 4)) + "vw, 0px, 0px)";
 
-          sliderIdx = sliderNum;
+          sliderIdx = innerContainerFinalNum - 3;
           currentSlider.classList.remove("active");
-          currentSlider = innerContainerFinal[sliderIdx + 1];
+          currentSlider = innerContainerFinal[sliderIdx];
           currentSlider.classList.add("active");
         }, sliderSpeed);
       }
+      console.log(temp, sliderIdx);
     });
   </script>
 </body>
