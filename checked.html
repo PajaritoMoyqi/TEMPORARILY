@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CHECKED HTML</title>
+  <style>
+    .check-with-label:checked + .label-for-check {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div>
+  <input type="checkbox" class="check-with-label" id="idinput" />
+  <label class="label-for-check" for="idinput">My Label</label>
+</div>
+<script>
+  const inputBox = document.querySelector("#idinput");
+  const label = document.querySelector(".label-for-check");
+
+  inputBox.addEventListener("click", () => {
+    if (inputBox.checked) {
+      label.style.fontWeight = "bold";
+    } else {
+      label.style.fontWeight = "normal";
+    }
+  })
+</script>
+</body>
+</html>
