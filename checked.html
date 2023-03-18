@@ -27,6 +27,10 @@
       label.style.fontWeight = "normal";
     }
   })
+
+  fetch("https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo=1058", {method: "GET", mode: 'cors', headers: { 'Content-Type': 'application/json',}})
+    .then(data => console.log(data));
+
 </script>
 </body>
 </html>
