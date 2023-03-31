@@ -1,19 +1,27 @@
-function foo() {
-  console.log(this.a);
+var a = [21];
+var b = ["22"];
+
+a > b; // true
+b > a; // false
+
+var c = ["10"];
+var d = ["9"];
+
+c > d; // false
+d > c; // true
+
+const array = [
+  a > b,// true
+b > a,// false
+
+c > d,// false
+d > c,// true
+]
+
+const fn = (arr) => {
+  arr.forEach(val => {
+    console.log(val);
+  })
 }
 
-var obj = {
-  a: 2,
-  foo: foo,
-  baz: function() {
-    console.log(this.a);
-  }
-}
-
-var bar = obj.foo;
-var bar2 = obj.baz;
-var a = "전역";
-
-bar2();
-foo();
-bar();
+fn(array);
