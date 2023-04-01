@@ -1,27 +1,17 @@
-var a = [21];
-var b = ["22"];
-
-a > b; // true
-b > a; // false
-
-var c = ["10"];
-var d = ["9"];
-
-c > d; // false
-d > c; // true
+for (let i=1; i<=5; i++) {
+  setTimeout( function timer() {
+    console.log(i);
+  }, i*1000);
+}
 
 const array = [
-  a > b,// true
-b > a,// false
-
-c > d,// false
-d > c,// true
+  
 ]
 
-const fn = (arr) => {
+const fn10 = (arr) => {
   arr.forEach(val => {
     console.log(val);
   })
 }
 
-fn(array);
+fn10(array);
