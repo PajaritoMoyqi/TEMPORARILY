@@ -1,15 +1,9 @@
 #include <stdio.h>
-#include <locale.h>
-#include <string.h>
-#include <stddef.h>
+#include <math.h>
 
 int main( void )
 {
-    wchar_t wch = L'가';
-    setlocale( LC_ALL, "Korean" );
+    long long int a = pow( 2, 60 );
 
-    wprintf( L"%c\n", wch );
-
-    printf( "length: %d\n", strlen( "기니디리미abcde" ) );
-    printf( "length: %d\n", wcslen( L"기니디리미abcde" ) );
+    printf( "%lld", a );
 }
