@@ -1,9 +1,9 @@
 #include <stdio.h>
-#include <math.h>
+#include <stdlib.h>
 
-int main( void )
+int main()
 {
-    long long int a = pow( 2, 60 );
+    int c = getchar();
 
-    printf( "%lld", a );
+    printf( "%c", c );
 }
