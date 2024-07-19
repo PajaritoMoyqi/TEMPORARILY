@@ -1,14 +1,8 @@
-#include <stdio.h>
-#include <time.h>
-#include <sys/time.h>
-#include <unistd.h>
-#include <stdlib.h>
+??=include <stdio.h>
 
 int main( void )
-{
-		register unsigned long cur_sp asm ("sp");
-
-		printf( "%x", cur_sp );
+??<
+    printf( "%d", "??=" == "#" );
 
 		return 0;
-}
+??>
