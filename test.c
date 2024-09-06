@@ -1,15 +1,16 @@
 #include <stdio.h>
 
-#define STR_LEN 5
+static int sv = 12345;
+
+int show( void )
+{
+    static int sv2 = 11111;
+    int lv = 11111;
+}
 
 int main( void )
 {
-    char str[STR_LEN] = { 'a', 'b', 'c', 'd', 'e' };
+    printf( "%d", sv );
 
-    printf( "%.*s\n", STR_LEN, str );
-    printf( "%.*s\n", (int)sizeof( str ), str );
-    fwrite( str, 1, sizeof( str ), stdout );
-    fputc( '\n', stdout );
-    
-    // code
+    return 0;
 }
