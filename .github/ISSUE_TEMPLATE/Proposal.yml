@@ -1,5 +1,6 @@
 name: "✨ Proposal"
 description: "If you have any proposal to this repo."
+title: "[Proposal]: "
 labels: ["Proposal", "Pending"]
 body:
   - type: textarea
