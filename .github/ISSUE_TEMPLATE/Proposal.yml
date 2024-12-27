@@ -5,13 +5,13 @@ labels: ["Proposal", "Pending"]
 body:
   - type: textarea
     attributes:
-      label: &#128456; What's your proposal?
+      label: 📄 What's your proposal?
       placeholder: More detailed, better.
     validations:
       required: true
   - type: textarea
     attributes:
-      label: &#128451; Any references to make it?
+      label: 📘 Any references to make it?
       description: Write a list of websites which would be a help.
     validations:
       required: true
