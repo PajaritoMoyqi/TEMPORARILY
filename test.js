@@ -1,17 +1,9 @@
-for (let i=1; i<=5; i++) {
-  setTimeout( function timer() {
-    console.log(i);
-  }, i*1000);
-}
+const slowExecution = async () => { 
+  console.log("Start"); 
+  await setTimeout(() => { 
+      console.log("This will run after 1 second"); 
+  }, 1000);
+  console.log("End"); 
+} 
 
-const array = [
-  
-]
-
-const fn10 = (arr) => {
-  arr.forEach(val => {
-    console.log(val);
-  })
-}
-
-fn10(array);
+slowExecution(); 
