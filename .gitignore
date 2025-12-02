@@ -5,3 +5,6 @@
 *.o
 
 *.out
+
+# hiding file
+hidden.js
