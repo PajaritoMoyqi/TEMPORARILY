@@ -5,201 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="./reset.css">
-  <style>
-    .container {
-      width: 100vw;
-    }
-    .silder-wrapper {
-      width: 100%;
-      overflow: hidden;
-      height: 500px;
-    }
-    .slider-box {
-      display: flex;
-    }
-    .inner-container img {
-      width: 10vw;
-      height: 250px;
-    }
-    .inner-container.active img {
-      width: 80vw;
-      height: 500px;
-    }
-    .btn-part {
-      position: absolute;
-      left: 10vw;
-      width: 80%;
-      top: 250px;
-    }
-    .btn-part button.right-btn {
-      position: absolute;
-      right: 0;
-    }
-  </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 </head>
 <body>
-  <div class="container">
-    <div class="silder-wrapper">
-      <div class="slider-box">
-        <div class="inner-container">
-          1
-          <img src="https://picsum.photos/300">
-        </div>
-        <div class="inner-container">
-          2
-          <img src="https://picsum.photos/400">
-        </div>
-        <div class="inner-container">
-          3
-          <img src="https://picsum.photos/500">
-        </div>
-        <div class="inner-container">
-          4
-          <img src="https://picsum.photos/600">
-        </div>
-        <div class="inner-container">
-          5
-          <img src="https://picsum.photos/700">
-        </div>  
+  <div id="carouselExampleIndicators" class="carousel slide">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="test.png" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="test.png" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="test.png" class="d-block w-100" alt="...">
       </div>
     </div>
-    <div class="btn-part">
-      <button class="left-btn">LEFT</button>
-      <button class="right-btn">RIGHT</button>  
-    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
-
-  <script>
-    // select buttons
-    const leftBtn = document.querySelector(".left-btn");
-    const rightBtn = document.querySelector(".right-btn");
-
-    // select containers
-    const container = document.querySelector(".container");
-    const sliderWrapper = document.querySelector(".silder-wrapper");
-    const sliderBox = document.querySelector(".slider-box");
-    const innerContainer = document.querySelectorAll(".inner-container");
-    
-    // constant variable setting
-    const sliderNum = innerContainer.length; // total number of "original" images
-    const sliderWidth = 10; // basic slider width (10vw)
-    const activeSliderWidth = 80; // active slider width (80vw)
-    const sliderSpeed = 300; // slider chaning speed
-
-    // set slider-box total width = (basicslider number - 1) * 10vw + active slider number(which is 1) * 80vw
-    sliderBox.style.width = (sliderWidth * (sliderNum - 1)) + activeSliderWidth  + "vw";
-
-    // copy children that need to be attached both sides
-    // 1. select
-    const firstChild = innerContainer[0];
-    const secondChild = innerContainer[1];
-    const secondLastChild = innerContainer[sliderNum - 2];
-    const lastChild = innerContainer[sliderNum - 1];
-
-    // 2. copy
-    const clonedFirst = firstChild.cloneNode(true);
-    const clonedSecond = secondChild.cloneNode(true);
-    const clonedSecondLast = secondLastChild.cloneNode(true);
-    const clonedLast = lastChild.cloneNode(true);
-
-    // 3. attach
-    sliderBox.appendChild(clonedFirst);
-    sliderBox.appendChild(clonedSecond);
-    sliderBox.insertBefore(clonedLast, sliderBox.firstElementChild);
-    sliderBox.insertBefore(clonedSecondLast, sliderBox.firstElementChild);
-
-    // constant variable setting 2
-    const startIdx = 2; // start image index (in total array)
-    const innerContainerFinal = document.querySelectorAll(".inner-container"); // total array of image container DOM
-    const innerContainerFinalNum = innerContainerFinal.length; // final number of image container
-
-    // set initial position of slider-box
-    sliderBox.style.transform = "translate3d(-" + sliderWidth * (startIdx - 1) + "vw, 0px, 0px)";
-
-    // sets variables that are gonna be changed by click event
-    let sliderIdx = startIdx; // index which represents what slider is selected now
-    let currentSlider = innerContainerFinal[sliderIdx];  // get initial current slider
-    currentSlider.classList.add("active"); // set active class to main image to give specific style
-
-    const rightBtnCb = () => {
-      const temp = sliderIdx; // just for debugging
-      sliderIdx++; // slider index changed
-
-      if (sliderIdx <= innerContainerFinalNum - 2) {
-        // slider-box animation
-        sliderBox.style.transition = sliderSpeed + "ms";
-        sliderBox.style.transform = "translate3d(-" + (sliderWidth * (sliderIdx - 1)) + "vw, 0px, 0px)";
-
-        // selected image style
-        currentSlider.classList.remove("active");
-        currentSlider = innerContainerFinal[sliderIdx];
-        currentSlider.classList.add("active");
-
-        // block button event
-        rightBtn.removeEventListener("click", rightBtnCb);
-        setTimeout(() => {
-          rightBtn.addEventListener("click", rightBtnCb);
-        }, sliderSpeed);
-      }
-      if (sliderIdx === innerContainerFinalNum - 2) {
-        setTimeout( () => {
-          // change selected image behind users' back
-          sliderBox.style.transition = "0ms";
-          sliderBox.style.transform = "translate3d(-" + (sliderWidth * (startIdx - 1)) + "vw, 0px, 0px)";
-
-          // change slider index behind users' back
-          sliderIdx = 2;
-          
-          // selected image style
-          currentSlider.classList.remove("active");
-          currentSlider = innerContainerFinal[sliderIdx];
-          currentSlider.classList.add("active");
-        }, sliderSpeed);
-      }
-      console.log(temp, sliderIdx); // just for debugging
-    }
-
-    const leftBtnCb = () => {
-      const temp = sliderIdx; // just for debugging
-      sliderIdx--; // slider index changed
-
-      if (sliderIdx >= 1) {
-        // slider-box animation
-        sliderBox.style.transition = sliderSpeed + "ms";
-        sliderBox.style.transform = "translate3d(-" + (sliderWidth * (sliderIdx - 1)) + "vw, 0px, 0px)";
-
-        // selected image style
-        currentSlider.classList.remove("active");
-        currentSlider = innerContainerFinal[sliderIdx];
-        currentSlider.classList.add("active");
-
-        // block button event
-        leftBtn.removeEventListener("click", leftBtnCb);
-        setTimeout(() => {
-          leftBtn.addEventListener("click", leftBtnCb);
-        }, sliderSpeed);
-      }
-      if (sliderIdx === 1) {
-        setTimeout( () => {
-          // change selected image behind users' back
-          sliderBox.style.transition = "0ms";
-          sliderBox.style.transform = "translate3d(-" + (sliderWidth * (innerContainerFinalNum - 4)) + "vw, 0px, 0px)";
-
-          // change slider index behind users' back
-          sliderIdx = innerContainerFinalNum - 3;
-
-          // selected image style
-          currentSlider.classList.remove("active");
-          currentSlider = innerContainerFinal[sliderIdx];
-          currentSlider.classList.add("active");
-        }, sliderSpeed);
-      }
-      console.log(temp, sliderIdx); // just for debugging
-    }
-
-    // add event-listener
-    rightBtn.addEventListener("click", rightBtnCb);
-    leftBtn.addEventListener("click", leftBtnCb);
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 </body>
 </html>
