@@ -35,3 +35,5 @@ const findWidestGap = ( Arr ) => {
 } 
 
 findWidestGap( Values );
+
+console.log('check');
